@@ -2,6 +2,8 @@ package entities
 
 import "time"
 
+type Status int
+
 const (
 	NotDone = iota
 	InProgress
@@ -9,14 +11,14 @@ const (
 )
 
 type Task struct {
-	id          int
-	name        string
-	description string
-	status      int
-	createdAt   time.Time
-	completeAt  time.Time
+	Id          int
+	Name        string
+	Description string
+	Status      Status
+	CreatedAt   time.Time
+	CompleteAt  time.Time
 }
 
 func CreateTask(id int, name string, description string) *Task {
-	return &Task{id: id, name: name, description: description, status: NotDone, createdAt: time.Now(), completeAt: time.Time{}}
+	return &Task{Id: id, Name: name, Description: description, Status: NotDone, CreatedAt: time.Now(), CompleteAt: time.Time{}}
 }
