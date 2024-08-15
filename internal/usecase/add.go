@@ -2,6 +2,7 @@ package usecase
 
 import (
 	"TaskTracker/internal/entities"
+	"fmt"
 	"log"
 )
 
@@ -10,20 +11,20 @@ type TaskStorage interface {
 	NumOfTasks() (int, error)
 }
 
-func AddTask(storage TaskStorage, name string, description string) {
+func AddTask(storage TaskStorage, name string, description string) (int, error) {
 	numOfTasks, err := storage.NumOfTasks()
 
 	if err != nil {
-		log.Fatal("Cant calculate new task id")
-		return
+		return -1, fmt.Errorf("Cant calculate new task id")
 	}
 
 	newTask := entities.CreateTask(numOfTasks, name, description)
 
 	if err := storage.SaveTask(newTask); err != nil {
-		log.Fatal("Cant save task to storage")
-		return
+		return -1, fmt.Errorf("Cant save task to storage")
 	}
 
 	log.Printf("Add task to storage: %s", newTask)
+
+	return numOfTasks, nil
 }
