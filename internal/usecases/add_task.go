@@ -3,13 +3,10 @@ package usecases
 import (
 	"TaskTracker/internal/entities"
 	"fmt"
-	"log"
 )
 
 type TaskStorage interface {
 	SaveTask(e *entities.Task) error
-	GetTasks() ([]*entities.Task, error)
-	NumOfTasks() (int, error)
 	GetFreeId() (int, error)
 }
 
@@ -25,7 +22,7 @@ func AddTask(storage TaskStorage, name string, description string) (int, error) 
 		return -1, fmt.Errorf("cant save task to storage")
 	}
 
-	log.Printf("Add task to storage: %s", newTask)
+	//log.Printf("Add task to storage: %s", newTask)
 
 	return freeId, nil
 }
