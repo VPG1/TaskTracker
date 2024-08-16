@@ -1,4 +1,4 @@
-package files_function
+package file_functions
 
 import (
 	"fmt"
@@ -25,6 +25,11 @@ func CreateFileIfNotExists(path string) error {
 		fmt.Println(file.Stat())
 		if err != nil {
 			log.Fatal("cannot create file: ", err)
+			return err
+		}
+
+		_, err = file.Write([]byte("[]"))
+		if err != nil {
 			return err
 		}
 	}
