@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"time"
 )
 
 var ErrTaskNotFound = errors.New("task not found")
@@ -170,9 +171,17 @@ func (js JsonStorage) UpdateTaskStatus(id int, newStatus entities.Status) error 
 		return err
 	}
 
-	for _, curTask := range tasks {
-		if curTask.Id == id {
-			curTask.Status = newStatus
+	for _, task := range tasks {
+		if task.Id == id {
+
+			task.Status = newStatus
+			task.UpdatedAt = time.Now()
+
+			err := js.loadTasksToStorage(tasks)
+			if err != nil {
+				return err
+			}
+
 			return nil
 		}
 	}

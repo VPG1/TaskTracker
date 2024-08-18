@@ -14,5 +14,10 @@ func MarkTask(storage TaskStorage, id int, status entities.Status) error {
 		return usecase_errors.ErrInvalidStatus
 	}
 
+	err := storage.UpdateTaskStatus(id, status)
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
