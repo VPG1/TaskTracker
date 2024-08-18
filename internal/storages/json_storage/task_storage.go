@@ -130,3 +130,19 @@ func (js JsonStorage) GetAllTasks() ([]*entities.Task, error) {
 
 	return tasks, nil
 }
+
+func (js JsonStorage) GetTasksByStatus(status entities.Status) ([]*entities.Task, error) {
+	tasks, err := js.loadTasksFromStorage()
+	if err != nil {
+		return nil, err
+	}
+
+	completedTasks := make([]*entities.Task, 0)
+	for _, task := range tasks {
+		if task.Status == status {
+			completedTasks = append(completedTasks, task)
+		}
+	}
+
+	return completedTasks, nil
+}

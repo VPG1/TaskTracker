@@ -1,8 +1,9 @@
 package main
 
 import (
+	"TaskTracker/internal/entities"
 	"TaskTracker/internal/storages/json_storage"
-	"TaskTracker/internal/usecases/get_task_by_id"
+	"TaskTracker/internal/usecases/get_tasks_by_status"
 	"fmt"
 	"log"
 )
@@ -14,8 +15,9 @@ func main() {
 		return
 	}
 
-	v, err := get_task_by_id.GetTaskById(storage, 5)
+	v, err := get_tasks_by_status.GetTasksByStatus(storage, entities.NotDone+5)
 	if err != nil {
+		fmt.Println(err)
 		return
 	}
 
