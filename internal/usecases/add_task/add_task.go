@@ -5,7 +5,7 @@ import (
 )
 
 type TaskStorage interface {
-	SaveTask(*entities.Task) error
+	AddNewTask(*entities.Task) error
 	GetFreeId() (int, error)
 }
 
@@ -17,7 +17,7 @@ func AddTask(storage TaskStorage, name string, description string) (int, error) 
 
 	newTask := entities.CreateTask(freeId, name, description)
 
-	if err := storage.SaveTask(newTask); err != nil {
+	if err := storage.AddNewTask(newTask); err != nil {
 		return -1, err
 	}
 

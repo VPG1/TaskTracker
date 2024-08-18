@@ -42,11 +42,11 @@ func (_m *TaskStorage) GetFreeId() (int, error) {
 }
 
 // SaveTask provides a mock function with given fields: e
-func (_m *TaskStorage) SaveTask(e *entities.Task) error {
+func (_m *TaskStorage) AddNewTask(e *entities.Task) error {
 	ret := _m.Called(e)
 
 	if len(ret) == 0 {
-		panic("no return value specified for SaveTask")
+		panic("no return value specified for AddNewTask")
 	}
 
 	var r0 error

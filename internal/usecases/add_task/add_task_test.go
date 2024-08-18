@@ -11,7 +11,7 @@ func TestAddTask(t *testing.T) {
 	t.Run("base test", func(t *testing.T) {
 		storage := mocks.NewTaskStorage(t)
 		storage.On("GetFreeId").Return(0, nil)
-		storage.On("SaveTask", mock.Anything).Return(nil)
+		storage.On("AddNewTask", mock.Anything).Return(nil)
 
 		_, err := AddTask(storage, "task1", "description")
 		if err != nil {
@@ -29,14 +29,14 @@ func TestAddTask(t *testing.T) {
 		}
 	})
 
-	t.Run("SaveTask returns error", func(t *testing.T) {
+	t.Run("AddNewTask returns error", func(t *testing.T) {
 		storage := mocks.NewTaskStorage(t)
 		storage.On("GetFreeId").Return(0, nil)
-		storage.On("SaveTask", mock.Anything).Return(fmt.Errorf("SaveTask error"))
+		storage.On("AddNewTask", mock.Anything).Return(fmt.Errorf("AddNewTask error"))
 
 		_, err := AddTask(storage, "task1", "description")
 		if err == nil {
-			t.Errorf("AddTask() error = %v, wantErr %v", nil, fmt.Errorf("SaveTask error"))
+			t.Errorf("AddTask() error = %v, wantErr %v", nil, fmt.Errorf("AddNewTask error"))
 		}
 	})
 }
