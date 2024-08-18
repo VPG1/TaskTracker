@@ -16,9 +16,11 @@ type Task struct {
 	Description string
 	Status      Status
 	CreatedAt   time.Time
-	CompleteAt  time.Time
+	UpdatedAt   time.Time
 }
 
 func CreateTask(id int, name string, description string) *Task {
-	return &Task{Id: id, Name: name, Description: description, Status: NotDone, CreatedAt: time.Now(), CompleteAt: time.Time{}}
+	t := time.Now()
+	return &Task{Id: id, Name: name, Description: description,
+		Status: NotDone, CreatedAt: t, UpdatedAt: t}
 }

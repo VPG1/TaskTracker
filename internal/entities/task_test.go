@@ -8,7 +8,7 @@ import (
 // function do deep equal of Task structs without checking CreatedAt
 func taskIsEqual(left *Task, right *Task) bool {
 	return left.Id == right.Id && left.Name == right.Name && left.Description == right.Description &&
-		left.Status == right.Status && left.CompleteAt == right.CompleteAt
+		left.Status == right.Status
 }
 
 func TestCreateTask(t *testing.T) {
