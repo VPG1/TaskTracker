@@ -7,5 +7,5 @@ type TaskStorage interface {
 }
 
 func GetAllTasks(store TaskStorage) ([]*entities.Task, error) {
-	return TaskStorage.GetAllTasks()
+	return store.GetAllTasks()
 }
