@@ -106,3 +106,27 @@ func (js JsonStorage) GetFreeId() (int, error) {
 
 	return tasks[len(tasks)-1].Id + 1, nil
 }
+
+func (js JsonStorage) GetTaskById(id int) (*entities.Task, error) {
+	storage, err := js.loadTasksFromStorage()
+	if err != nil {
+		return nil, err
+	}
+
+	for _, task := range storage {
+		if task.Id == id {
+			return task, nil
+		}
+	}
+
+	return nil, nil
+}
+
+func (js JsonStorage) GetAllTasks() ([]*entities.Task, error) {
+	tasks, err := js.loadTasksFromStorage()
+	if err != nil {
+		return nil, err
+	}
+
+	return tasks, nil
+}
