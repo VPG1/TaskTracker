@@ -136,7 +136,7 @@ func (js JsonStorage) GetTaskById(id int) (*entities.Task, error) {
 		}
 	}
 
-	return nil, nil
+	return nil, ErrTaskNotFound
 }
 
 func (js JsonStorage) GetAllTasks() ([]*entities.Task, error) {
