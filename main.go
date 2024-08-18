@@ -2,7 +2,7 @@ package main
 
 import (
 	"TaskTracker/internal/storages/json_storage"
-	"TaskTracker/internal/usecases"
+	"TaskTracker/internal/usecases/add_task"
 	"fmt"
 	"log"
 )
@@ -14,7 +14,7 @@ func main() {
 		return
 	}
 
-	_, err = usecases.AddTask(storage, "Task1", "desc")
+	_, err = add_task.AddTask(storage, "Task1", "desc")
 	if err != nil {
 		log.Fatal(err)
 		return

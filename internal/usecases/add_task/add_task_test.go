@@ -1,7 +1,7 @@
-package usecases
+package add_task
 
 import (
-	"TaskTracker/internal/usecases/mocks"
+	"TaskTracker/internal/usecases/add_task/mocks"
 	"fmt"
 	"github.com/stretchr/testify/mock"
 	"testing"

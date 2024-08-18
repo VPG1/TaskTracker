@@ -1,4 +1,4 @@
-package usecases
+package add_task
 
 import (
 	"TaskTracker/internal/entities"
