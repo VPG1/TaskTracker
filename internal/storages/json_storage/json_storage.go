@@ -12,6 +12,7 @@ type JsonStorage struct {
 	basePath string
 }
 
+// New Create new JsonStorage
 func New(basePath string) (*JsonStorage, error) {
 	err := file_functions.CreateFileIfNotExists(basePath)
 	if err != nil {
@@ -21,6 +22,7 @@ func New(basePath string) (*JsonStorage, error) {
 	return &JsonStorage{basePath}, nil
 }
 
+// loading task from json file and return slice of Tasks
 func (js JsonStorage) loadTasksFromStorage() ([]*entities.Task, error) {
 	// Crete a file if it does not exist
 	if err := file_functions.CreateFileIfNotExists(js.basePath); err != nil {
@@ -42,6 +44,7 @@ func (js JsonStorage) loadTasksFromStorage() ([]*entities.Task, error) {
 	return tasks, nil
 }
 
+// recieve
 func (js JsonStorage) loadTasksToStorage(tasks []*entities.Task) error {
 	// Marshal json array
 	data, err := json.Marshal(tasks)
