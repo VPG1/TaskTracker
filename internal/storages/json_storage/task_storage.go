@@ -62,21 +62,6 @@ func (js JsonStorage) loadTasksToStorage(tasks []*entities.Task) error {
 	return nil
 }
 
-func (js JsonStorage) isTaskInStorage(task *entities.Task) (bool, error) {
-	tasks, err := js.loadTasksFromStorage()
-	if err != nil {
-		return false, err
-	}
-
-	for _, curTask := range tasks {
-		if curTask.Id == task.Id {
-			return true, nil
-		}
-	}
-
-	return false, nil
-}
-
 func (js JsonStorage) AddNewTask(task *entities.Task) error {
 	tasks, err := js.loadTasksFromStorage()
 	if err != nil {
@@ -176,6 +161,28 @@ func (js JsonStorage) UpdateTaskStatus(id int, newStatus entities.Status) error 
 
 			task.Status = newStatus
 			task.UpdatedAt = time.Now()
+
+			err := js.loadTasksToStorage(tasks)
+			if err != nil {
+				return err
+			}
+
+			return nil
+		}
+	}
+
+	return ErrTaskNotFound
+}
+
+func (js JsonStorage) DeleteTask(id int) error {
+	tasks, err := js.loadTasksFromStorage()
+	if err != nil {
+		return err
+	}
+
+	for i := range tasks {
+		if tasks[i].Id == id {
+			tasks = append(tasks[:i], tasks[i+1:]...)
 
 			err := js.loadTasksToStorage(tasks)
 			if err != nil {
