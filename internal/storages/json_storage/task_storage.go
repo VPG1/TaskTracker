@@ -154,14 +154,14 @@ func (js JsonStorage) GetTasksByStatus(status entities.Status) ([]*entities.Task
 		return nil, err
 	}
 
-	completedTasks := make([]*entities.Task, 0)
+	markedTasks := make([]*entities.Task, 0)
 	for _, task := range tasks {
 		if task.Status == status {
-			completedTasks = append(completedTasks, task)
+			markedTasks = append(markedTasks, task)
 		}
 	}
 
-	return completedTasks, nil
+	return markedTasks, nil
 }
 
 func (js JsonStorage) UpdateTaskStatus(id int, newStatus entities.Status) error {
