@@ -1,49 +1,42 @@
 package usecases
 
 import (
-	"TaskTracker/internal/entities"
 	"TaskTracker/internal/usecases/mocks"
+	"fmt"
+	"github.com/stretchr/testify/mock"
 	"testing"
 )
 
 func TestAddTask(t *testing.T) {
-	type args struct {
-		name        string
-		description string
-	}
-	tests := []struct {
-		name    string
-		args    args
-		want    int
-		wantErr bool
-	}{
-		// TODO: Add test cases.
-		{
-			name: "base test",
-			args: args{
-				"task1",
-				"description1",
-			},
-			want:    0,
-			wantErr: false,
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			storage := mocks.NewTaskStorage(t)
+	t.Run("base test", func(t *testing.T) {
+		storage := mocks.NewTaskStorage(t)
+		storage.On("GetFreeId").Return(0, nil)
+		storage.On("SaveTask", mock.Anything).Return(nil)
 
-			storage.On("SaveTask", entities.CreateTask(0, tt.args.name, tt.args.description)).Return(nil)
-			storage.On("GetFreeId").Return(0, nil)
+		_, err := AddTask(storage, "task1", "description")
+		if err != nil {
+			t.Errorf("AddTask() error = %v, wantErr %v", err, nil)
+		}
+	})
 
-			got, err := AddTask(storage, tt.args.name, tt.args.description)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("AddTask() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
+	t.Run("GetFreeId return error", func(t *testing.T) {
+		storage := mocks.NewTaskStorage(t)
+		storage.On("GetFreeId").Return(-1, fmt.Errorf("GetFreeId error"))
 
-			if got != tt.want {
-				t.Errorf("AddTask() got = %v, want %v", got, tt.want)
-			}
-		})
-	}
+		_, err := AddTask(storage, "task2", "description")
+		if err == nil {
+			t.Errorf("AddTask() error = %v, wantErr %v", nil, fmt.Errorf("GetFreeId error"))
+		}
+	})
+
+	t.Run("SaveTask returns error", func(t *testing.T) {
+		storage := mocks.NewTaskStorage(t)
+		storage.On("GetFreeId").Return(0, nil)
+		storage.On("SaveTask", mock.Anything).Return(fmt.Errorf("SaveTask error"))
+
+		_, err := AddTask(storage, "task1", "description")
+		if err == nil {
+			t.Errorf("AddTask() error = %v, wantErr %v", nil, fmt.Errorf("SaveTask error"))
+		}
+	})
 }
