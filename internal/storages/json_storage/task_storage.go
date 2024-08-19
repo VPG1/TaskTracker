@@ -193,3 +193,19 @@ func (js JsonStorage) DeleteTask(id int) error {
 
 	return task_tracker_errors.ErrTaskNotFound
 }
+
+func (js JsonStorage) UpdateTask(id int, task *entities.Task) error {
+	tasks, err := js.loadTasksFromStorage()
+	if err != nil {
+		return err
+	}
+
+	for _, curTask := range tasks {
+		if curTask.Id == id {
+			curTask = task
+			return nil
+		}
+	}
+
+	return task_tracker_errors.ErrTaskNotFound
+}
