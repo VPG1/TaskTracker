@@ -1,6 +1,6 @@
 # Task Tracker
 
-Sample solution for the [task-tracker](https://roadmap.sh/projects/task-tracker) challenge from [roadmap.sh](https://roadmap.sh/).
+Simple CLI Task Tracking application
 
 ## How to run
 
@@ -21,7 +21,7 @@ go build -o task-tracker
 ./task-tracker add --name "cook dinner" --description "By products and cook dinner"
 
 # To update a task
-./task-tracker update 1 "Buy groceries and cook dinner"
+./task-tracker update 1 --description "Buy groceries and cook dinner"
 
 # To delete a task
 ./task-tracker delete 1
