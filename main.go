@@ -1,22 +1,10 @@
+/*
+Copyright © 2024 NAME HERE <EMAIL ADDRESS>
+*/
 package main
 
-import (
-	"TaskTracker/internal/storages/json_storage"
-	"TaskTracker/internal/usecases/delete_task"
-	"fmt"
-	"log"
-)
+import "TaskTracker/cmd"
 
 func main() {
-	storage, err := json_storage.New("storage.json")
-	if err != nil {
-		log.Fatal(err)
-		return
-	}
-
-	err = delete_task.DeleteTask(storage, 0)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
+	cmd.Execute()
 }
