@@ -1,7 +1,7 @@
 run:
 	go run main.go
 build:
-	go build main.go
+	go build
 test:
 	go clean -testcache
 	go test ./...
