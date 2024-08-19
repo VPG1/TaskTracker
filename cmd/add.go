@@ -12,31 +12,30 @@ var taskDescription string
 // addCmd represents the add command
 var addCmd = &cobra.Command{
 	Use:   "add",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Short: "Command to add a new task",
+	Long: `This command will add a new task to the task tracker.
+The command has two required flags --name and --description
+to set the name and description of the new task`,
 	Run: func(cmd *cobra.Command, args []string) {
-		_, err := add_task.AddTask(JsonStorage, taskName, taskDescription)
+		id, err := add_task.AddTask(JsonStorage, taskName, taskDescription)
 		if err != nil {
 			fmt.Println(err)
 			return
 		}
+
+		fmt.Println("Added Task: ", id)
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(addCmd)
 
-	addCmd.Flags().StringVar(&taskName, "name", "", "task name")
+	addCmd.Flags().StringVarP(&taskName, "name", "n", "", "task name")
 	err := addCmd.MarkFlagRequired("name")
 	if err != nil {
 		return
 	}
-	addCmd.Flags().StringVar(&taskDescription, "description", "", "task description")
+	addCmd.Flags().StringVarP(&taskDescription, "description", "d", "", "task description")
 	err = addCmd.MarkFlagRequired("description")
 	if err != nil {
 		return
