@@ -19,7 +19,7 @@ Command has one required argument with a task ID.`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		id, err := strconv.Atoi(args[0])
 		if err != nil {
-			return fmt.Errorf("argument is not a number")
+			return fmt.Errorf("task_id must be integer")
 		}
 
 		err = delete_task.DeleteTask(JsonStorage, id)
