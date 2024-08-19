@@ -1,7 +1,6 @@
 package file_functions
 
 import (
-	"fmt"
 	"log"
 	"os"
 )
@@ -22,7 +21,6 @@ func CheckIsFileExist(path string) bool {
 func CreateFileIfNotExists(path string) error {
 	if !CheckIsFileExist(path) {
 		file, err := os.Create(path)
-		fmt.Println(file.Stat())
 		if err != nil {
 			log.Fatal("cannot create file: ", err)
 			return err
