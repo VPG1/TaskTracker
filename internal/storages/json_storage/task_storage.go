@@ -200,9 +200,15 @@ func (js JsonStorage) UpdateTask(id int, task *entities.Task) error {
 		return err
 	}
 
-	for _, curTask := range tasks {
-		if curTask.Id == id {
-			curTask = task
+	for i := range tasks {
+		if tasks[i].Id == id {
+			tasks[i] = task
+
+			err := js.loadTasksToStorage(tasks)
+			if err != nil {
+				return err
+			}
+
 			return nil
 		}
 	}
