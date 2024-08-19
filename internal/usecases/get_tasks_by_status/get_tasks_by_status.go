@@ -2,7 +2,7 @@ package get_tasks_by_status
 
 import (
 	"TaskTracker/internal/entities"
-	"TaskTracker/internal/usecases/usecase_errors"
+	"TaskTracker/internal/task_tracker_errors"
 )
 
 type TaskStorage interface {
@@ -11,7 +11,7 @@ type TaskStorage interface {
 
 func GetTasksByStatus(storage TaskStorage, status entities.Status) ([]*entities.Task, error) {
 	if status < 0 || status > 2 {
-		return nil, usecase_errors.ErrInvalidStatus
+		return nil, task_tracker_errors.ErrInvalidStatus
 	}
 
 	return storage.GetTasksByStatus(status)

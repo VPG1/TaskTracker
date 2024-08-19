@@ -2,15 +2,13 @@ package json_storage
 
 import (
 	"TaskTracker/internal/entities"
+	"TaskTracker/internal/task_tracker_errors"
 	"TaskTracker/pkg/file_functions"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"os"
 	"time"
 )
-
-var ErrTaskNotFound = errors.New("task not found")
 
 type JsonStorage struct {
 	basePath string
@@ -122,7 +120,7 @@ func (js JsonStorage) GetTaskById(id int) (*entities.Task, error) {
 		}
 	}
 
-	return nil, ErrTaskNotFound
+	return nil, task_tracker_errors.ErrTaskNotFound
 }
 
 func (js JsonStorage) GetAllTasks() ([]*entities.Task, error) {
@@ -171,7 +169,7 @@ func (js JsonStorage) UpdateTaskStatus(id int, newStatus entities.Status) error 
 		}
 	}
 
-	return ErrTaskNotFound
+	return task_tracker_errors.ErrTaskNotFound
 }
 
 func (js JsonStorage) DeleteTask(id int) error {
@@ -193,5 +191,5 @@ func (js JsonStorage) DeleteTask(id int) error {
 		}
 	}
 
-	return ErrTaskNotFound
+	return task_tracker_errors.ErrTaskNotFound
 }

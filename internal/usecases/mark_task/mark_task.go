@@ -2,7 +2,7 @@ package mark_task
 
 import (
 	"TaskTracker/internal/entities"
-	"TaskTracker/internal/usecases/usecase_errors"
+	"TaskTracker/internal/task_tracker_errors"
 )
 
 type TaskStorage interface {
@@ -11,7 +11,7 @@ type TaskStorage interface {
 
 func MarkTask(storage TaskStorage, id int, status entities.Status) error {
 	if status < 0 || status > 2 {
-		return usecase_errors.ErrInvalidStatus
+		return task_tracker_errors.ErrInvalidStatus
 	}
 
 	err := storage.UpdateTaskStatus(id, status)
