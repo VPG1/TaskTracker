@@ -16,13 +16,9 @@ import (
 var deleteCmd = &cobra.Command{
 	Use:   "delete <task_id>",
 	Args:  cobra.ExactArgs(1),
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Short: "Command to delete a task",
+	Long: `This command will delete a task from the task tracker by task ID.
+Command has one required argument with a task ID.`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		id, err := strconv.Atoi(args[0])
 		if err != nil {
