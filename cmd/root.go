@@ -15,7 +15,8 @@ var rootCmd = &cobra.Command{
 	Use:   "TaskTracker",
 	Short: "CLI Application for task tracking",
 	Long: `This application is a CLI application for task tracking.
-This application is a tool`,
+This application is a tool for managing your tasks.
+You can add, delete, update and view your tasks using special commands.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("root called")
 	},
@@ -31,5 +32,4 @@ func Execute() {
 
 func init() {
 	JsonStorage, _ = json_storage.New("storage.json")
-	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
