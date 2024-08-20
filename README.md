@@ -8,7 +8,7 @@ Clone the repository and run the following command:
 
 ```bash
 git clone https://github.com/VPG1/TaskTracker.git
-cd backend-projects/task-tracker
+cd TaskTracker
 ```
 
 Run the following command to build and run the project:
